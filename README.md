@@ -24,6 +24,16 @@ An enterprise-grade, multi-model microservice platform designed to automate the 
 
 ---
 
+<div align="center">
+
+[![Live Project](https://img.shields.io/badge/🟢_Live-Project_Link-success?style=for-the-badge)](https://invoicing_classification.spdwivedi.me/)
+[![GitHub](https://img.shields.io/badge/💻_GitHub-Repository-black?style=for-the-badge)](https://github.com/spdwivedi/AI_Invoicing_Classification_Platform)
+[![Google Drive](https://img.shields.io/badge/📁_Google_Drive-Project_Assets-blue?style=for-the-badge)](https://drive.google.com/drive/folders/1UvtXSiwfpxa3I_Qvwv9v4DxkOXn2ulNS?usp=sharing)
+[![Portfolio](https://img.shields.io/badge/👨‍💻_Portfolio-spdwivedi.me-teal?style=for-the-badge)](https://spdwivedi.me)
+[![LinkedIn](https://img.shields.io/badge/🔗_LinkedIn-Connect-0A66C2?style=for-the-badge)](https://www.linkedin.com/in/spdwivedi2001/)
+
+</div>
+
 ## 1. Introduction & Quick Start Guide
 
 The NextBill AI platform serves as an end-to-end blueprint for deploying, benchmarking, and tracking machine learning models in a live production environment. The platform features an interactive single-page dashboard UI and an API layer that exposes automated parallel inference paths, dynamic batch CSV file processing, and asynchronous background model optimizations.
