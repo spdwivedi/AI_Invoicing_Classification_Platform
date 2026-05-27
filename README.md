@@ -21,6 +21,7 @@ An enterprise-grade, multi-model microservice platform designed to automate the 
 13. [Global Middleware Interceptor & Grouped Hierarchical JSONL Logging System](#13-global-middleware-interceptor--grouped-hierarchical-jsonl-logging-system)
 14. [Dynamic CSV Data Batch Tester Engine & Programmatic Justification Analytics](#14-dynamic-csv-data-batch-tester-engine--programmatic-justification-analytics)
 15. [Asynchronous Non-Blocking On-Demand Fine-Tuning Daemon Threads](#15-asynchronous-non-blocking-on-demand-fine-tuning-daemon-threads)
+16. [Interactive API Documentation & Endpoint Usage](#16-interactive-api-documentation--endpoint-usage)
 
 ---
 
@@ -257,3 +258,27 @@ To allow continuous model optimization without taking the API endpoints offline,
 
 * **Non-Blocking Architecture:** Users can upload a training CSV schema and define custom hyperparameter epochs. The server immediately returns a `200 OK` status, delegating the heavy tensor computations to an isolated thread.
 * **State Polling:** The frontend dashboard opens an asynchronous web polling loop hitting `GET /train-status`, streaming live simulated cross-entropy loss metrics and epoch completion milestones directly to the console UI until the new architecture weights are safely persisted to the local volume layer.
+
+---
+
+---
+
+## 16. Interactive API Documentation & Endpoint Usage
+
+The NextBill API utilizes FastAPI's native OpenAPI integration to automatically generate a live, interactive documentation environment. This allows developers to inspect request schemas, execute inference, and monitor server responses directly from the browser without requiring external tools like Postman.
+
+**🌐 Access the Live Swagger UI:** [https://invoicing-classification.spdwivedi.me/docs/](https://invoicing-classification.spdwivedi.me/docs/)
+
+### Core Exposed Endpoints:
+
+* **`GET /`**
+    * **Purpose:** Base routing that serves the interactive HTML dashboard (`index.html`).
+* **`POST /predict`**
+    * **Purpose:** The primary inference gateway. Accepts a JSON payload containing raw invoice text (`description`) and an optional model selection parameter.
+    * **Output:** Returns the predicted category mapping, the execution latency, and the float-precision confidence score.
+* **`POST /upload-test-csv`**
+    * **Purpose:** Bulk validation engine. Accepts a multipart form data CSV upload and routes it through all three models concurrently for real-time comparative matrix generation.
+* **`POST /train` & `GET /train-status`**
+    * **Purpose:** Triggers the asynchronous background `BackgroundTasks` daemon for non-blocking model fine-tuning, and polls the real-time cross-entropy loss metrics respectively.
+* **`GET /logs`**
+    * **Purpose:** Reads and parses the hierarchical `storage/history/web_predictions.jsonl` audit trail, returning paginated historical inference data to the dashboard.
