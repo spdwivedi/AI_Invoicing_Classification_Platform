@@ -1,0 +1,79 @@
+=== Beginning Evaluation Engine on: faker_benchmark_v1.csv ===
+
+--- Evaluating v1_L (TF-IDF + Logistic Regression) ---
+Overall Accuracy: 0.8889
+
+Detailed Classification Metrics:
+                 precision    recall  f1-score   support
+
+ Cloud/Software       1.00      0.87      0.93        30
+      Inventory       0.77      1.00      0.87        30
+      Logistics       0.81      1.00      0.90        30
+Office Supplies       1.00      0.70      0.82        30
+         Travel       0.85      0.77      0.81        30
+      Utilities       1.00      1.00      1.00        30
+
+       accuracy                           0.89       180
+      macro avg       0.91      0.89      0.89       180
+   weighted avg       0.91      0.89      0.89       180
+
+Text Confusion Matrix (Rows = Actual, Columns = Predicted):
+                 Cloud/Software  Inventory  Logistics  Office Supplies  Travel  Utilities
+Cloud/Software               26          0          0                0       4          0
+Inventory                     0         30          0                0       0          0
+Logistics                     0          0         30                0       0          0
+Office Supplies               0          9          0               21       0          0
+Travel                        0          0          7                0      23          0
+Utilities                     0          0          0                0       0         30
+
+--- Evaluating v1_NB (CountVectorizer + Naive Bayes) ---
+Overall Accuracy: 0.8944
+
+Detailed Classification Metrics:
+                 precision    recall  f1-score   support
+
+ Cloud/Software       1.00      1.00      1.00        30
+      Inventory       0.78      0.83      0.81        30
+      Logistics       0.81      1.00      0.90        30
+Office Supplies       1.00      0.77      0.87        30
+         Travel       1.00      0.77      0.87        30
+      Utilities       0.86      1.00      0.92        30
+
+       accuracy                           0.89       180
+      macro avg       0.91      0.89      0.89       180
+   weighted avg       0.91      0.89      0.89       180
+
+Text Confusion Matrix (Rows = Actual, Columns = Predicted):
+                 Cloud/Software  Inventory  Logistics  Office Supplies  Travel  Utilities
+Cloud/Software               30          0          0                0       0          0
+Inventory                     0         25          0                0       0          5
+Logistics                     0          0         30                0       0          0
+Office Supplies               0          7          0               23       0          0
+Travel                        0          0          7                0      23          0
+Utilities                     0          0          0                0       0         30
+
+--- Evaluating v1_T (Deep Learning Transformer) ---
+Overall Accuracy: 0.9167
+
+Detailed Classification Metrics:
+                 precision    recall  f1-score   support
+
+ Cloud/Software       0.86      1.00      0.92        30
+      Inventory       0.89      0.83      0.86        30
+      Logistics       0.81      1.00      0.90        30
+Office Supplies       1.00      0.90      0.95        30
+         Travel       1.00      0.77      0.87        30
+      Utilities       1.00      1.00      1.00        30
+
+       accuracy                           0.92       180
+      macro avg       0.93      0.92      0.92       180
+   weighted avg       0.93      0.92      0.92       180
+
+Text Confusion Matrix (Rows = Actual, Columns = Predicted):
+                 Cloud/Software  Inventory  Logistics  Office Supplies  Travel  Utilities
+Cloud/Software               30          0          0                0       0          0
+Inventory                     5         25          0                0       0          0
+Logistics                     0          0         30                0       0          0
+Office Supplies               0          3          0               27       0          0
+Travel                        0          0          7                0      23          0
+Utilities                     0          0          0                0       0         30

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextBill AI Portfolio Hub</title>
+    <style>
+        :root { 
+            --bg: #f8fafc; 
+            --panel: #ffffff; 
+            --text: #0f172a; 
+            --primary: #1d4ed8; 
+            --accent: #16a34a; 
+            --border: #cbd5e1;
+            --danger: #dc2626;
+            --warning: #ea580c;
+        }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; }
+        .container { max-width: 1250px; margin: 0 auto; }
+        .hero { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; padding: 2.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .hero h1 { margin: 0; font-size: 2.5rem; letter-spacing: -0.04em; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        .tab { padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; border: none; background: none; color: #475569; cursor: pointer; border-radius: 6px; transition: all 0.2s; }
+        .tab.active { background: var(--primary); color: white; }
+        .panel { display: none; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .panel.active { display: block; }
+        textarea { width: 100%; height: 90px; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical; }
+        button { background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 0.5rem; }
+        button:hover { background: #1e40af; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+        .card { border: 1px solid var(--border); padding: 1.25rem; border-radius: 8px; background: #f8fafc; border-top: 4px solid #94a3b8; }
+        .card.winner { border-top: 4px solid var(--primary); background: #eff6ff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1.5rem; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background: #f8fafc; font-weight: 600; }
+        .story-block { border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; background: #f8fafc; }
+        .story-header { font-size: 1.25rem; font-weight: 700; color: #1e3a8a; margin-bottom: 0.5rem; }
+        .nested-row { background: #fdfdfd; display: none; }
+        .nested-row.expanded { display: table-row; }
+        .expand-btn { background: #e2e8f0; color: #334155; border: none; padding: 0.35rem 0.65rem; font-size: 0.8rem; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .expand-btn:hover { background: #cbd5e1; }
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; font-size: 0.8rem; font-weight: bold; border-radius: 4px; color: white; background: #64748b; }
+        .badge.batch { background: #7c3aed; }
+        .badge.highlight { background: var(--primary); }
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        input[type="number"], input[type="file"] { width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 1.25rem; border-radius: 8px; overflow-x: auto; font-family: monospace; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>NextBill AI Invoicing Validation Workspace</h1>
+        <p>Production execution workspace tracking computational inference, structural data shifts, and unified token audit trails live.</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="routeTab(event, 'play-view')">Inference Playground</button>
+        <button class="tab" onclick="routeTab(event, 'csv-view')">Custom CSV Batch Tester</button>
+        <button class="tab" onclick="routeTab(event, 'story-view')">Ecosystem Performance Stories</button>
+        <button class="tab" onclick="routeTab(event, 'train-view')">Retraining Core</button>
+        <button class="tab" onclick="routeTab(event, 'history-view')">Live Audit Logs</button>
+    </div>
+
+    <div id="play-view" class="panel active">
+        <h2>Manual Invoice Text Sandbox</h2>
+        <p>Pass raw invoice records concurrently to see output label alignment across parallel engine weights.</p>
+        <textarea id="sandboxText" placeholder="Example: AWS monthly cloud hosting bill account consumption..."></textarea>
+        <button onclick="runParallelInference()">Execute Parallel Predictions</button>
+
+        <div class="grid">
+            <div class="card winner">
+                <h3>v1_T (DistilBERT Core)</h3>
+                <p><strong>Primary Production Engine</strong></p>
+                <div id="out_T">Awaiting input execution...</div>
+            </div>
+            <div class="card">
+                <h3>v1_NB (Naive Bayes)</h3>
+                <p>Statistical Word Probability Baseline</p>
+                <div id="out_NB">Awaiting input execution...</div>
+            </div>
+            <div class="card">
+                <h3>v1_L (Logistic Reg)</h3>
+                <p>TF-IDF Structural Baseline</p>
+                <div id="out_L">Awaiting input execution...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="csv-view" class="panel">
+        <h2>Dynamic CSV Evaluation Dashboard</h2>
+        <p>Drop an evaluation file (`.csv`) containing an input text column. The platform computes real-time accuracy ratings, puts the winning model on top, and delivers an engineering explanation.</p>
+        <div class="form-group"><input type="file" id="batchFile" accept=".csv"></div>
+        <button onclick="processBatchUpload()">Upload and Analyze File</button>
+
+        <div id="batchResponse" style="display:none; margin-top: 1.5rem;">
+            <h3>Evaluation Analysis Report</h3>
+            <div id="explanationBox" style="padding:1rem; background:#eff6ff; border-left:4px solid var(--primary); margin-bottom:1rem; border-radius:4px;"></div>
+            <table>
+                <thead><tr><th>Performance Rank</th><th>Model Identifier Engine</th><th>Measured Dataset Accuracy</th></tr></thead>
+                <tbody id="rankingTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="story-view" class="panel">
+        <h2>Comprehensive Cross-Dataset Benchmark Stories</h2>
+        <p>An exact cross-examination of how varying language profiles (synthetic clean vs. messy real-world) change model behavior and trigger structural collapses.</p>
+        
+        <div class="story-block" style="border-left: 5px solid var(--accent);">
+            <div class="story-header">📈 Scenario 1: Clean Synthetic Boundaries (faker_benchmark_v1.csv)</div>
+            <p><strong>Training Corpus Core:</strong> <code>data.csv</code> (Synthetic template parameters)</p>
+            <table>
+                <thead><tr><th>Model Pipeline Identifier</th><th>Accuracy</th><th>Precision (Macro)</th><th>Recall (Macro)</th><th>F1-Score (Macro)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>v1_T (Transformer Core)</strong></td><td><span id="f_t_acc">...</span></td><td><span id="f_t_pr">...</span></td><td><span id="f_t_rc">...</span></td><td><span id="f_t_f1">...</span></td></tr>
+                    <tr><td><strong>v1_NB (Naive Bayes)</strong></td><td><span id="f_nb_acc">...</span></td><td><span id="f_nb_pr">...</span></td><td><span id="f_nb_rc">...</span></td><td><span id="f_nb_f1">...</span></td></tr>
+                    <tr><td><strong>v1_L (Logistic Regression)</strong></td><td><span id="f_l_acc">...</span></td><td><span id="f_l_pr">...</span></td><td><span id="f_l_rc">...</span></td><td><span id="f_l_f1">...</span></td></tr>
+                </tbody>
+            </table>
+            <p><strong>Behavioral Summary:</strong> Traditional bag-of-words counting scripts function cleanly here because there is zero keyword context contamination across target categories.</p>
+        </div>
+
+        <div class="story-block" style="border-left: 5px solid var(--danger);">
+            <div class="story-header">📉 Scenario 2: Unstructured Real-World Dataset Shift (kaggle_test_data.csv)</div>
+            <p><strong>Training Corpus Core:</strong> <code>data.csv</code> (Maintained identically to isolate drift factors)</p>
+            <table>
+                <thead><tr><th>Model Pipeline Identifier</th><th>Accuracy</th><th>Precision (Macro)</th><th>Recall (Macro)</th><th>F1-Score (Macro)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>v1_T (Transformer Core)</strong></td><td><span id="k_t_acc">...</span></td><td><span id="k_t_pr">...</span></td><td><span id="k_t_rc">...</span></td><td><span id="k_t_f1">...</span></td></tr>
+                    <tr><td><strong>v1_NB (Naive Bayes)</strong></td><td><span id="k_nb_acc">...</span></td><td><span id="k_nb_pr">...</span></td><td><span id="k_nb_rc">...</span></td><td><span id="k_nb_f1">...</span></td></tr>
+                    <tr><td><strong>v1_L (Logistic Regression)</strong></td><td><span id="k_l_acc">...</span></td><td><span id="k_l_pr">...</span></td><td><span id="k_l_rc">...</span></td><td><span id="k_l_f1">...</span></td></tr>
+                </tbody>
+            </table>
+            <p><strong>Why Did the Traditional Models Completely Collapse?</strong> Traditional baselines completely collapsed into systemic single-class biases (v1_L guessed everything as Travel; v1_NB guessed Cloud/Software). The Transformer model maintained an accurate floor because its <strong>multi-head self-attention</strong> analyzes structural sentence context rather than matching isolated key terms.</p>
+        </div>
+    </div>
+
+    <div id="train-view" class="panel">
+        <h2>On-Demand Background Fine-Tuning Console</h2>
+        <p>Submit custom transaction logs (`.csv` files with explicit `text` and `category` headers) to start a background optimization task without blocking API availability.</p>
+        <div class="form-group"><label>Training Data Target Path</label><input type="file" id="trainFile" accept=".csv"></div>
+        <div class="form-group"><label>Training Steps (Epochs)</label><input type="number" id="trainEpochs" value="5" min="1" max="25"></div>
+        <button onclick="startCloudTraining()">Launch Optimization Job</button>
+
+        <div id="trainingStatusContainer" style="display:none; margin-top: 1.5rem;">
+            <h3>Asynchronous Thread State Status</h3>
+            <div id="threadStatusText" style="font-weight:bold; margin-bottom:0.5rem;">Status: Initializing loop...</div>
+            <pre id="threadLogs">Awaiting worker socket stream logs...</pre>
+        </div>
+    </div>
+
+    <div id="history-view" class="panel">
+        <h2>Live System Audit Trail & Grouped Transaction Logs</h2>
+        <p>Every transaction evaluated is preserved directly inside your server environment. Batch runs appear as a single summary row; expand them to view the individual item records:</p>
+        <button onclick="refreshAuditLedgerTable()" style="background:var(--accent); margin-bottom:1rem;">Sync Execution Audit Ledger</button>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 120px;">Actions</th>
+                    <th>Timestamp</th>
+                    <th>Source Type</th>
+                    <th>Extracted Raw Text Payload / Meta</th>
+                    <th>v1_L</th>
+                    <th>v1_NB</th>
+                    <th>v1_T Core</th>
+                </tr>
+            </thead>
+            <tbody id="auditLogTableBody">
+                <tr><td colspan="7">Click sync to stream real-time logs from the storage system file layer...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const API_BASE_ENDPOINT = window.location.origin;
+
+    function routeTab(e, targetViewId) {
+        document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.getElementById(targetViewId).classList.add('active');
+        e.currentTarget.classList.add('active');
+        
+        if(targetViewId === 'history-view') refreshAuditLedgerTable();
+        if(targetViewId === 'story-view') syncHistoricalReportMatrices();
+    }
+
+    async function fetchModelSandboxResponse(endpointUrl, displayCardId) {
+        const targetContainer = document.getElementById(displayCardId);
+        targetContainer.innerHTML = "<em>Querying tensor activations...</em>";
+        const val = document.getElementById("sandboxText").value.trim();
+        if(!val) { targetContainer.innerHTML = "Input query is empty."; return; }
+        try {
+            const res = await fetch(`${API_BASE_ENDPOINT}${endpointUrl}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: val })
+            });
+            if(res.status === 200) {
+                const data = await res.json();
+                targetContainer.innerHTML = `<span class='badge highlight'>Category:</span> <strong>${data.category}</strong><br><span style='color:#64748b;'>Confidence:</span> ${(data.confidence * 100).toFixed(2)}%`;
+            } else { targetContainer.innerHTML = `<span style='color:var(--danger);'>HTTP Error ${res.status}</span>`; }
+        } catch(e) { targetContainer.innerHTML = "<span style='color:var(--danger);'>Server Offline</span>"; }
+    }
+
+    function runParallelInference() {
+        fetchModelSandboxResponse("/v1_T/predict", "out_T");
+        fetchModelSandboxResponse("/v1_NB/predict", "out_NB");
+        fetchModelSandboxResponse("/v1_L/predict", "out_L");
+    }
+
+    async function syncHistoricalReportMatrices() {
+        try {
+            const res = await fetch(`${API_BASE_ENDPOINT}/metrics`);
+            if(res.status === 200) {
+                const d = await res.json();
+                // Map Faker baseline data elements
+                document.getElementById("f_t_acc").innerText = (d.faker_benchmark.v1_T.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("f_t_pr").innerText = (d.faker_benchmark.v1_T.precision * 100).toFixed(2) + "%";
+                document.getElementById("f_t_rc").innerText = (d.faker_benchmark.v1_T.recall * 100).toFixed(2) + "%";
+                document.getElementById("f_t_f1").innerText = (d.faker_benchmark.v1_T.f1 * 100).toFixed(2) + "%";
+                
+                document.getElementById("f_nb_acc").innerText = (d.faker_benchmark.v1_NB.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("f_nb_pr").innerText = (d.faker_benchmark.v1_NB.precision * 100).toFixed(2) + "%";
+                document.getElementById("f_nb_rc").innerText = (d.faker_benchmark.v1_NB.recall * 100).toFixed(2) + "%";
+                document.getElementById("f_nb_f1").innerText = (d.faker_benchmark.v1_NB.f1 * 100).toFixed(2) + "%";
+
+                document.getElementById("f_l_acc").innerText = (d.faker_benchmark.v1_L.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("f_l_pr").innerText = (d.faker_benchmark.v1_L.precision * 100).toFixed(2) + "%";
+                document.getElementById("f_l_rc").innerText = (d.faker_benchmark.v1_L.recall * 100).toFixed(2) + "%";
+                document.getElementById("f_l_f1").innerText = (d.faker_benchmark.v1_L.f1 * 100).toFixed(2) + "%";
+
+                // Map Kaggle retail shift data elements
+                document.getElementById("k_t_acc").innerText = (d.uci_retail_shift.v1_T.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("k_t_pr").innerText = (d.uci_retail_shift.v1_T.precision * 100).toFixed(2) + "%";
+                document.getElementById("k_t_rc").innerText = (d.uci_retail_shift.v1_T.recall * 100).toFixed(2) + "%";
+                document.getElementById("k_t_f1").innerText = (d.uci_retail_shift.v1_T.f1 * 100).toFixed(2) + "%";
+                
+                document.getElementById("k_nb_acc").innerText = (d.uci_retail_shift.v1_NB.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("k_nb_pr").innerText = (d.uci_retail_shift.v1_NB.precision * 100).toFixed(2) + "%";
+                document.getElementById("k_nb_rc").innerText = (d.uci_retail_shift.v1_NB.recall * 100).toFixed(2) + "%";
+                document.getElementById("k_nb_f1").innerText = (d.uci_retail_shift.v1_NB.f1 * 100).toFixed(2) + "%";
+
+                document.getElementById("k_l_acc").innerText = (d.uci_retail_shift.v1_L.accuracy * 100).toFixed(2) + "%";
+                document.getElementById("k_l_pr").innerText = (d.uci_retail_shift.v1_L.precision * 100).toFixed(2) + "%";
+                document.getElementById("k_l_rc").innerText = (d.uci_retail_shift.v1_L.recall * 100).toFixed(2) + "%";
+                document.getElementById("k_l_f1").innerText = (d.uci_retail_shift.v1_L.f1 * 100).toFixed(2) + "%";
+            }
+        } catch(err) {}
+    }
+
+    async function refreshAuditLedgerTable() {
+        const tableBody = document.getElementById("auditLogTableBody");
+        tableBody.innerHTML = "<tr><td colspan='7'><em>Synchronizing append-only log maps...</em></td></tr>";
+        try {
+            const res = await fetch(`${API_BASE_ENDPOINT}/history`);
+            const records = await res.json();
+            if(records.length === 0) { tableBody.innerHTML = "<tr><td colspan='7'>Audit trail log is currently empty.</td></tr>"; return; }
+            let matrixHtml = "";
+            records.forEach((row, idx) => {
+                const isBatch = row.is_batch === true;
+                const actionBtn = isBatch ? `<button class="expand-btn" onclick="toggleBatchDropdown(${idx})">▶ View (${row.batch_items.length})</button>` : `<span class="badge">Single</span>`;
+                const sourceBadge = isBatch ? `<span class="badge batch">Batch Array</span>` : `<span class="badge highlight">Direct API</span>`;
+                
+                matrixHtml += `<tr>
+                    <td>${actionBtn}</td>
+                    <td><code>${row.timestamp}</code></td>
+                    <td>${sourceBadge}</td>
+                    <td>"${row.text}"</td>
+                    <td>${row.v1_L_prediction}</td>
+                    <td>${row.v1_NB_prediction}</td>
+                    <td><span style='color:var(--primary); font-weight:bold;'>${row.v1_T_prediction}</span></td>
+                </tr>`;
+
+                if(isBatch) {
+                    matrixHtml += `<tr id="nested_container_${idx}" class="nested-row"><td colspan="7" style="padding: 1rem; background: #fafbfe;"><div style="border:1px solid var(--border); border-radius:8px; padding:1rem; background:#ffffff;">
+                        <h4 style="margin-top:0; color:var(--primary);">Nested Batch Individual Predictions Ledger</h4>
+                        <table style="margin:0; width:100%;">
+                            <thead><tr><th>Raw Text Row Payload</th><th>v1_L</th><th>v1_NB</th><th>v1_T Core</th></tr></thead>
+                            <tbody>`;
+                    row.batch_items.forEach(item => {
+                        matrixHtml += `<tr><td>"${item.text}"</td><td>${item.v1_L}</td><td>${item.v1_NB}</td><td><strong>${item.v1_T}</strong></td></tr>`;
+                    });
+                    matrixHtml += `</tbody></table></div></td></tr>`;
+                }
+            });
+            tableBody.innerHTML = matrixHtml;
+        } catch(e) { tableBody.innerHTML = "<tr><td colspan='7' style='color:var(--danger);'>Failed to contact storage audit stream interface.</td></tr>"; }
+    }
+
+    function toggleBatchDropdown(index) {
+        const row = document.getElementById(`nested_container_${index}`);
+        row.classList.toggle('expanded');
+    }
+
+    async function processBatchUpload() {
+        const selectorFile = document.getElementById("batchFile").files[0];
+        if(!selectorFile) { alert("Please attach a target validation CSV file."); return; }
+        const formPayload = new FormData();
+        formPayload.append("file", selectorFile);
+
+        document.getElementById("batchResponse").style.display = "block";
+        document.getElementById("explanationBox").innerHTML = "<em>Streaming text arrays to parallel compute graphs...</em>";
+
+        try {
+            const res = await fetch(`${API_BASE_ENDPOINT}/upload-test-csv`, { method: "POST", body: formPayload });
+            if(res.status === 200) {
+                const data = await res.json();
+                document.getElementById("explanationBox").innerHTML = `<strong>Programmatic Evaluation:</strong> ${data.justification}`;
+                let rankLines = "";
+                data.rankings.forEach((rank, index) => {
+                    rankLines += `<tr><td><strong>Rank #${index + 1}</strong></td><td><code>${rank.model}</code></td><td>${(rank.accuracy * 100).toFixed(2)}%</td></tr>`;
+                });
+                document.getElementById("rankingTableBody").innerHTML = rankLines;
+            } else { document.getElementById("explanationBox").innerHTML = "Formatting error within input CSV columns."; }
+        } catch(e) { document.getElementById("explanationBox").innerHTML = "Connection failure."; }
+    }
+
+    let trackInterval = null;
+    async function startCloudTraining() {
+        const csvFile = document.getElementById("trainFile").files[0];
+        if(!csvFile) { alert("Please attach a valid training CSV dataset."); return; }
+        const fData = new FormData();
+        fData.append("file", csvFile);
+        fData.append("epochs", document.getElementById("trainEpochs").value);
+
+        document.getElementById("trainingStatusContainer").style.display = "block";
+
+        try {
+            const r = await fetch(`${API_BASE_ENDPOINT}/train-custom-model`, { method: "POST", body: fData });
+            if(r.status === 200) {
+                if(trackInterval) clearInterval(trackInterval);
+                trackInterval = setInterval(pollTrainingThread, 1200);
+            }
+        } catch(e) { alert("Failed to launch background compute thread."); }
+    }
+
+    async function pollTrainingThread() {
+        try {
+            const r = await fetch(`${API_BASE_ENDPOINT}/train-status`);
+            const d = await r.json();
+            document.getElementById("threadStatusText").innerHTML = `<strong>Engine State:</strong> ${d.status} (Step: ${d.epoch}/${d.total_epochs})`;
+            document.getElementById("threadLogs").innerText = d.logs;
+            if(d.status === "Completed" || d.status === "Failed") clearInterval(trackInterval);
+        } catch(e) { clearInterval(trackInterval); }
+    }
+</script>
+</body>
+</html>
